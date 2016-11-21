@@ -7,15 +7,6 @@
 <title>Frituur Frieda</title>
 </head>
 <body>
-	<h1>
-	<% 
-		int dag = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-		if(dag == Calendar.MONDAY || dag == Calendar.THURSDAY){
-			out.print("Vandaag zijn we gesloten.");
-		} else {
-			out.print("Vandaag zijn we open.");
-		}
-	%>
-	</h1>
+	<h1>${status}</h1>
 </body>
 </html>
