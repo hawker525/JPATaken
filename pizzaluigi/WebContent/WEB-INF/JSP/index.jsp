@@ -4,7 +4,7 @@
 <html lang='nl'>
 <head>
 	<c:import url='/WEB-INF/JSP/head.jsp'>
-		<c:param name='title' value="PizzaLuigi" />	
+		<c:param name='title' value="Pizza Luigi" />	
 	</c:import>
 </head>
 	<body>
@@ -20,5 +20,6 @@
 			<dd>${zaakvoerder.adres.straat} ${zaakvoerder.adres.huisNr}<br>
 			${zaakvoerder.adres.postcode} ${zaakvoerder.adres.gemeente}</dd>
 		</dl>
+		<div>Deze pagina werd ${aantalKeerBekeken } keer bekeken.</div>
 	</body>
 </html>

@@ -3,6 +3,8 @@ package be.vdab.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,20 +18,21 @@ import be.vdab.entities.Persoon;
 /**
  * Servlet implementation class IndexServlet
  */
-@WebServlet("/index.html")
+@WebServlet(urlPatterns = "/index.html", name = "indexServlet")
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/index.jsp";
 	private final Persoon zaakvoerder = new Persoon();
+	private final AtomicInteger aantalKeerBekeken = new AtomicInteger();
 
     /**
      * Default constructor. 
      */
-    public IndexServlet() {
-    	zaakvoerder.setVoornaam("Luigi");
-    	zaakvoerder.setFamilienaam("Peperone");
-    	zaakvoerder.setAantalKinderen(7);
-    	zaakvoerder.setGehuwd(true);
+    public void init() throws ServletException {
+    	zaakvoerder.setVoornaam(this.getInitParameter("voornaam"));
+    	zaakvoerder.setFamilienaam(this.getInitParameter("familienaam"));
+    	zaakvoerder.setAantalKinderen(Integer.parseInt(this.getInitParameter("aantalKinderen")));
+    	zaakvoerder.setGehuwd(Boolean.parseBoolean(this.getInitParameter("gehuwd")));
     }
 
 	/**
@@ -44,6 +47,7 @@ public class IndexServlet extends HttpServlet {
 		adres.setGemeente("Oudenaarde");
 		zaakvoerder.setAdres(adres);
 		
+		request.setAttribute("aantalKeerBekeken", aantalKeerBekeken.incrementAndGet());
 		request.setAttribute("zaakvoerder", zaakvoerder);
 		request.setAttribute("begroeting", new Begroeting());
 		request.getRequestDispatcher(VIEW).forward(request, response);
