@@ -9,5 +9,7 @@
 <body>
 	<h1>Vandaag zijn we ${openGesloten}</h1>
 	<img src="images/${openGesloten}.png" />
+	<h2>Adres</h2>
+	<p>${adres.straat} ${adres.huisNr}, ${adres.gemeente.postCode} ${adres.gemeente.naam}</p>
 </body>
 </html>

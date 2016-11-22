@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import be.vdab.entities.Adres;
 import be.vdab.entities.Begroeting;
+import be.vdab.entities.Persoon;
 
 /**
  * Servlet implementation class IndexServlet
@@ -18,12 +20,16 @@ import be.vdab.entities.Begroeting;
 public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/index.jsp";
+	private final Persoon zaakvoerder = new Persoon();
 
     /**
      * Default constructor. 
      */
     public IndexServlet() {
-        // TODO Auto-generated constructor stub
+    	zaakvoerder.setVoornaam("Luigi");
+    	zaakvoerder.setFamilienaam("Peperone");
+    	zaakvoerder.setAantalKinderen(7);
+    	zaakvoerder.setGehuwd(true);
     }
 
 	/**
@@ -31,6 +37,14 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int uur = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		Adres adres = new Adres();
+		adres.setStraat("Grote markt");
+		adres.setHuisNr("3");
+		adres.setPostcode(9700);
+		adres.setGemeente("Oudenaarde");
+		zaakvoerder.setAdres(adres);
+		
+		request.setAttribute("zaakvoerder", zaakvoerder);
 		request.setAttribute("begroeting", new Begroeting());
 		request.getRequestDispatcher(VIEW).forward(request, response);
 	}
