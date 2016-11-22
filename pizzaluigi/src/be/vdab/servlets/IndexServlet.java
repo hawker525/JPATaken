@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,15 +25,18 @@ public class IndexServlet extends HttpServlet {
 	private static final String VIEW = "/WEB-INF/JSP/index.jsp";
 	private final Persoon zaakvoerder = new Persoon();
 	private final AtomicInteger aantalKeerBekeken = new AtomicInteger();
+	private static final String INDEX_REQUESTS = "indexRequests";
 
     /**
      * Default constructor. 
      */
     public void init() throws ServletException {
-    	zaakvoerder.setVoornaam(this.getInitParameter("voornaam"));
-    	zaakvoerder.setFamilienaam(this.getInitParameter("familienaam"));
-    	zaakvoerder.setAantalKinderen(Integer.parseInt(this.getInitParameter("aantalKinderen")));
-    	zaakvoerder.setGehuwd(Boolean.parseBoolean(this.getInitParameter("gehuwd")));
+    	ServletContext context = this.getServletContext();
+    	context.setAttribute(INDEX_REQUESTS, new AtomicInteger());
+    	zaakvoerder.setVoornaam(context.getInitParameter("voornaam"));
+    	zaakvoerder.setFamilienaam(context.getInitParameter("familienaam"));
+    	zaakvoerder.setAantalKinderen(Integer.parseInt(context.getInitParameter("aantalKinderen")));
+    	zaakvoerder.setGehuwd(Boolean.parseBoolean(context.getInitParameter("gehuwd")));
     }
 
 	/**
@@ -40,12 +44,7 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int uur = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-		Adres adres = new Adres();
-		adres.setStraat("Grote markt");
-		adres.setHuisNr("3");
-		adres.setPostcode(9700);
-		adres.setGemeente("Oudenaarde");
-		zaakvoerder.setAdres(adres);
+		((AtomicInteger) this.getServletContext().getAttribute(INDEX_REQUESTS)).incrementAndGet();
 		
 		request.setAttribute("aantalKeerBekeken", aantalKeerBekeken.incrementAndGet());
 		request.setAttribute("zaakvoerder", zaakvoerder);

@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-	<servlet>
-			<servlet-name>indexServlet</servlet-name>
-			<servlet-class>be.vdab.servlets.IndexServlet</servlet-class>
-			<init-param>
-				<param-name>voornaam</param-name>
-				<param-value>Luigi</param-value>
-			</init-param>
-			<init-param>
-				<param-name>familienaam</param-name>
-				<param-value>Peperone</param-value>
-			</init-param>
-			<init-param>
-				<param-name>aantalKinderen</param-name>
-				<param-value>7</param-value>
-			</init-param>
-			<init-param>
-				<param-name>gehuwd</param-name>
-				<param-value>true</param-value>
-			</init-param>
-	</servlet>
+  <context-param>
+    <param-name>voornaam</param-name>
+    <param-value>Luigi</param-value>
+  </context-param>
+  <context-param>
+    <param-name>familienaam</param-name>
+    <param-value>Peperone</param-value>
+  </context-param>
+  <context-param>
+    <param-name>aantalKinderen</param-name>
+    <param-value>7</param-value>
+  </context-param>
+  <context-param>
+    <param-name>gehuwd</param-name>
+    <param-value>true</param-value>
+  </context-param>
 </web-app>
