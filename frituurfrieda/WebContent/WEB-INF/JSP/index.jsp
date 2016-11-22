@@ -7,6 +7,6 @@
 <title>Frituur Frieda</title>
 </head>
 <body>
-	<h1>${status}</h1>
+	<h1>Vandaag zijn we ${openGesloten}</h1>
 </body>
 </html>
