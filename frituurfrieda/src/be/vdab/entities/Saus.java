@@ -33,4 +33,9 @@ public class Saus {
 		this.ingredienten = ingredienten;
 	}
 
+	@Override
+	public String toString() {
+		return "Saus [nummer=" + nummer + ", naam=" + naam + ", ingredienten=" + ingredienten + "]";
+	}
+
 }
