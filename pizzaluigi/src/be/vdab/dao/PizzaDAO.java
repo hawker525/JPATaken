@@ -22,7 +22,7 @@ public class PizzaDAO {
 	}
 
 	public List<Pizza> findAll() {
-		return new ArrayList<>(PIZZAS.values());
+		return PIZZAS.values().stream().collect(Collectors.toList());
 	}
 	
 	public Pizza read(long id) {

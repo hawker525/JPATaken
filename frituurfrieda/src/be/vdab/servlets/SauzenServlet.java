@@ -1,17 +1,13 @@
 package be.vdab.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import be.vdab.entities.Saus;
+import be.vdab.dao.SausDAO;
 
 /**
  * Servlet implementation class SauzenServlet
@@ -20,6 +16,7 @@ import be.vdab.entities.Saus;
 public class SauzenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/sauzen.jsp";
+	private static final SausDAO SausDao = new SausDAO();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,14 +30,7 @@ public class SauzenServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Saus> sauzen = new ArrayList<>();
-		sauzen.add(new Saus(1, "cocktail", Arrays.asList("Cocktail, test")));
-		sauzen.add(new Saus(2, "mayonaise", Arrays.asList("Mayonaise, test")));
-		sauzen.add(new Saus(3, "mosterd", Arrays.asList("Mosterd, test")));
-		sauzen.add(new Saus(4, "tartare", Arrays.asList("Tartare")));
-		sauzen.add(new Saus(5, "vinaigrette", Arrays.asList("Vinaigrette, test")));
-		
-		request.setAttribute("sauzen", sauzen);
+		request.setAttribute("sauzen", SausDao.findAll());
 		request.getRequestDispatcher(VIEW).forward(request, response);
 	}
 
