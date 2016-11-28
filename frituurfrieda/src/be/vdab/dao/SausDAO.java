@@ -29,4 +29,8 @@ public class SausDAO {
 				.collect(Collectors.toList());
 	}
 	
+	public Saus removeSausById(long id) {
+		return SAUZEN.remove(id);
+	}
+	
 }

@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 import be.vdab.dao.SausDAO;
 
@@ -16,7 +17,7 @@ import be.vdab.dao.SausDAO;
 public class SauzenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/sauzen.jsp";
-	private static final SausDAO SausDao = new SausDAO();
+	private static final SausDAO sausDao = new SausDAO();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -30,7 +31,7 @@ public class SauzenServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("sauzen", SausDao.findAll());
+		request.setAttribute("sauzen", sausDao.findAll());
 		request.getRequestDispatcher(VIEW).forward(request, response);
 	}
 
@@ -38,7 +39,14 @@ public class SauzenServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		String[] sauzen = request.getParameterValues("id"); 
+		if(sauzen != null && sauzen.length != 0) {
+			for (String saus : sauzen) {
+				long id = Long.parseLong(saus);
+				sausDao.removeSausById(id);
+			}
+		}
 		doGet(request, response);
 	}
 

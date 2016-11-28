@@ -10,16 +10,34 @@
 		<c:param name='title' value='Sauzen' />	
 	</c:import>
 </head>
+
 <body>
 	<h1>Sauzen</h1>
-	<ul>
+	<form method='post' id='sauzenForm'>
+		<c:forEach items="${sauzen}" var="saus">
+			<label>
+			<input type="checkbox" name="id" value="${saus.nummer}">
+			${saus.naam}, ingredienten: 
+			${fn:join(saus.ingredienten.toArray() , ",")}
+			<img src="images/${saus.naam}.png" />
+			<br />
+			</label>
+		</c:forEach>
+		<input type="submit" name="submit" value="Aangevinkte sauzen verwijderen" id="submitBtn"/> 
+	</form>
+	<!-- <ul>
 		<c:forEach var="saus" items="${sauzen}">
 			<li>
-			${saus.naam}, ingredienten: 
+${saus.naam}, ingredienten: 
 			${fn:join(saus.ingredienten.toArray() , ",")}
 			<img src="images/${saus.naam}.png" />
 			</li>
 		</c:forEach>
-	</ul>
+	</ul> -->
+<script>
+	document.getElementById('sauzenForm').onsubmit = function() {
+		document.getElementById('submitBtn').disabled = true;
+	};
+</script>
 </body>
 </html>
