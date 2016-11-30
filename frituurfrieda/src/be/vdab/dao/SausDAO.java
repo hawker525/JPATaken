@@ -3,6 +3,7 @@ package be.vdab.dao;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,7 @@ import be.vdab.entities.*;
 
 public class SausDAO {
 	private static final Map<Long, Saus> SAUZEN = new ConcurrentHashMap<>();
+	private static final Random r = new Random();
 	
 	static {
 		SAUZEN.put(1L, new Saus(1, "cocktail", Arrays.asList("cocktail", "test")));
@@ -33,4 +35,8 @@ public class SausDAO {
 		return SAUZEN.remove(id);
 	}
 	
+	public Saus randomSaus(){
+		Object[] sauzen = SAUZEN.values().toArray();
+		return (Saus) sauzen[r.nextInt(sauzen.length)]	;
+	}
 }
