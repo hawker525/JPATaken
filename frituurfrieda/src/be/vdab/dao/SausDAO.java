@@ -35,7 +35,7 @@ public class SausDAO {
 		return SAUZEN.remove(id);
 	}
 	
-	public Saus randomSaus(){
+	public Saus getRandomSaus(){
 		Object[] sauzen = SAUZEN.values().toArray();
 		return (Saus) sauzen[r.nextInt(sauzen.length)]	;
 	}
