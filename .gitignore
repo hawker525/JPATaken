@@ -3,6 +3,10 @@
 /bin/
 target/
 
+# Unwanted projects #
+frituurfrieda/
+pizzaluigi/
+
 # OS Files #
 .DS_Store
 
