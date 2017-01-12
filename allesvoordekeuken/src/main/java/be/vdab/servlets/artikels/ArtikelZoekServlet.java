@@ -1,6 +1,7 @@
-package be.vdab.servlets;
+package be.vdab.servlets.artikels;
 
 import be.vdab.repositories.ArtikelRepository;
+import be.vdab.services.ArtikelService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,13 +19,13 @@ import java.util.Collections;
 public class ArtikelZoekServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/artikels/zoekenopnummer.jsp";
-    private static final ArtikelRepository artikelRepo = new ArtikelRepository();
+    private static final ArtikelService artikelService = new ArtikelService();
 
     @Override
     protected void doGet(final HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getQueryString() != null) {
             try {
-                artikelRepo.find(Long.parseLong(req.getParameter("id"))).ifPresent(a -> 	{ 
+                artikelService.read(Long.parseLong(req.getParameter("id"))).ifPresent(a -> 	{ 
                 																				req.setAttribute("artikel", a);
                 																				req.setAttribute("winstPercent", (a.getVerkoopprijs().subtract(a.getAankoopprijs())).divide(a.getAankoopprijs()).multiply(BigDecimal.valueOf(100)));
                 																			});

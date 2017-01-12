@@ -19,6 +19,41 @@ public class Artikel implements Serializable{
     private BigDecimal aankoopprijs;
     private BigDecimal verkoopprijs;
 
+    public Artikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs) {
+    	setNaam(naam);
+    	setAankoopprijs(aankoopprijs);
+    	setVerkoopprijs(verkoopprijs);
+    }
+    
+    public static boolean isNaamValid(String naam) {
+    	return naam != null && !naam.isEmpty();
+    }
+    
+    public static boolean isAankoopprijsValid(BigDecimal aankoopprijs) {
+    	return aankoopprijs.compareTo(BigDecimal.valueOf(0.01)) == 1;
+    }
+    
+    public static boolean isVerkoopprijsValid(BigDecimal verkoopprijs,  BigDecimal aankoopprijs) {
+    	return verkoopprijs.compareTo(aankoopprijs) >= 0;
+    }
+    
+    protected Artikel() {}
+    
+    public void setNaam(String naam) {
+    	if(!isNaamValid(naam)) throw new IllegalArgumentException();
+    	this.naam = naam;
+    }
+    
+    public void setAankoopprijs(BigDecimal aankoopprijs) {
+    	if(!isAankoopprijsValid(aankoopprijs)) throw new IllegalArgumentException();
+    	this.aankoopprijs = aankoopprijs;
+    }
+   
+    public void setVerkoopprijs(BigDecimal verkoopprijs) {
+    	if(!isVerkoopprijsValid(verkoopprijs, this.aankoopprijs)) throw new IllegalArgumentException();
+    	this.verkoopprijs = verkoopprijs;
+    }
+    
     public long getId() {
         return id;
     }
