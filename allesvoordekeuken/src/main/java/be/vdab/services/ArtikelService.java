@@ -1,5 +1,6 @@
 package be.vdab.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -24,6 +25,10 @@ public class ArtikelService extends AbstractService{
 			rollback();
 			throw e;
 		}
+	}
+	
+	public List<Artikel> findArtikelByNaam(String naam){
+		return artikelRepository.findArtikelByNaam(naam);
 	}
 	
 }

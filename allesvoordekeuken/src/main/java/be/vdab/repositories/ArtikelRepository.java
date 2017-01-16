@@ -4,6 +4,8 @@ import be.vdab.entities.Artikel;
 import be.vdab.filters.JPAFilter;
 
 import javax.persistence.EntityManager;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,6 +20,12 @@ public class ArtikelRepository extends AbstractRepository{
     
     public void create(Artikel artikel) {
     	getEntityManager().persist(artikel);
+    }
+    
+    public List<Artikel> findArtikelByNaam(String naam){
+    	return getEntityManager()
+    			.createQuery("select a from Artikel a where a.naam like '%"+ naam + "%' order by a.naam", Artikel.class)
+    			.getResultList();
     }
     
 }
