@@ -24,7 +24,8 @@ public class ArtikelRepository extends AbstractRepository{
     
     public List<Artikel> findArtikelByNaam(String naam){
     	return getEntityManager()
-    			.createQuery("select a from Artikel a where a.naam like '%"+ naam + "%' order by a.naam", Artikel.class)
+    			.createQuery("select a from Artikel a where a.naam like :query order by a.naam", Artikel.class)
+    			.setParameter("query", "%"+naam+"%")
     			.getResultList();
     }
     
