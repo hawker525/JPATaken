@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import be.vdab.entities.Artikel;
+import be.vdab.entities.FoodArtikel;
 import be.vdab.services.ArtikelService;
 
 /**
@@ -51,7 +52,17 @@ public class ToevoegenServlet extends HttpServlet {
 		BigDecimal verkoopprijs = new BigDecimal(request.getParameter("verkoopprijs"));
 		if(!Artikel.isVerkoopprijsValid(verkoopprijs, aankoopprijs)) fouten.put("verkoopprijs", "verkoopprijs moet groter zijn dan aankoopprijs.");
 		if(fouten.isEmpty()) {
-			Artikel artikel = new Artikel(naam, aankoopprijs, verkoopprijs);
+			Artikel artikel = null;
+			String radio = request.getParameter("soort");
+			switch (radio) {
+			case "food":
+				artikel = new FoodArtikel(naam, aankoopprijs, verkoopprijs, Integer.parseInt(request.getParameter("houdbaarheid")));
+				break;
+			case "nonfood":
+				artikel = new FoodArtikel(naam, aankoopprijs, verkoopprijs, Integer.parseInt(request.getParameter("garantie")));
+			default:
+				break;
+			}
 			artikelService.create(artikel);
 		} else {
 			request.setAttribute("fouten", fouten);

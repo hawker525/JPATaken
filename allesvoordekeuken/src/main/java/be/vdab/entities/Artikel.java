@@ -8,8 +8,10 @@ import java.math.BigDecimal;
  * Created by Maarten Westelinck on 22/12/2016.
  */
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "soort")
 @Table(name = "artikels")
-public class Artikel implements Serializable{
+public abstract class Artikel implements Serializable{
     private static final long serialVersionUID= 1L;
 
     @Id

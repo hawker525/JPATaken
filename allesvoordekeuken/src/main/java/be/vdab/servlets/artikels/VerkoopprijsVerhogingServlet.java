@@ -1,4 +1,4 @@
-package be.vdab.servlets;
+package be.vdab.servlets.artikels;
 
 import java.io.IOException;
 import java.math.BigDecimal;
