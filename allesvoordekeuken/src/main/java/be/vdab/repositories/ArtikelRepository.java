@@ -5,6 +5,7 @@ import be.vdab.filters.JPAFilter;
 
 import javax.persistence.EntityManager;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,12 @@ public class ArtikelRepository extends AbstractRepository{
     			.createQuery("select a from Artikel a where a.naam like :query order by a.naam", Artikel.class)
     			.setParameter("query", "%"+naam+"%")
     			.getResultList();
+    }
+    
+    public void verkoopprijsVerhoging(BigDecimal factor) {
+    	getEntityManager().createQuery("update Artikel a set a.verkoopprijs = a.verkoopprijs * :factor")
+    		.setParameter("factor", factor)
+    		.executeUpdate();
     }
     
 }

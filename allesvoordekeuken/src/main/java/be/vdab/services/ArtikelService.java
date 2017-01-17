@@ -1,5 +1,6 @@
 package be.vdab.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,18 @@ public class ArtikelService extends AbstractService{
 	
 	public List<Artikel> findArtikelByNaam(String naam){
 		return artikelRepository.findArtikelByNaam(naam);
+	}
+	
+	public void verkoopprijsVerhoging(BigDecimal percentage) {
+		BigDecimal factor = BigDecimal.ONE.add(percentage.divide(BigDecimal.valueOf(100)));
+		try {
+			beginTransaction();
+			artikelRepository.verkoopprijsVerhoging(factor);
+			commit();
+		} catch (RuntimeException ex) {
+			rollback();
+			throw ex;
+		}
 	}
 	
 }
