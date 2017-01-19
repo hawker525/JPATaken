@@ -14,4 +14,6 @@ public class FoodArtikel extends Artikel{
 		super(naam, aankoopprijs, verkoopprijs);
 		this.houdbaarheid = houdbaarheid;
 	}
+	
+	protected FoodArtikel() {}
 }

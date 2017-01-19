@@ -3,6 +3,11 @@ package be.vdab.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import be.vdab.valueobjects.Korting;
 
 /**
  * Created by Maarten Westelinck on 22/12/2016.
@@ -20,11 +25,20 @@ public abstract class Artikel implements Serializable{
     private String naam;
     private BigDecimal aankoopprijs;
     private BigDecimal verkoopprijs;
+    @ElementCollection
+    @CollectionTable(name = "kortingen", joinColumns = @JoinColumn(name = "artikelid"))
+    @OrderBy("vanafAantal")
+    private Set<Korting> kortingen;
 
     public Artikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs) {
     	setNaam(naam);
     	setAankoopprijs(aankoopprijs);
     	setVerkoopprijs(verkoopprijs);
+    	this.kortingen = new HashSet<>();
+    }
+    
+    public Set<Korting> getKortingen(){
+    	return Collections.unmodifiableSet(kortingen);
     }
     
     public static boolean isNaamValid(String naam) {

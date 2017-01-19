@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Created by Maarten Westelinck on 22/12/2016 for AllesVoorDeKeuken.
@@ -34,6 +35,11 @@ public class ArtikelRepository extends AbstractRepository{
     	getEntityManager().createQuery("update Artikel a set a.verkoopprijs = a.verkoopprijs * :factor")
     		.setParameter("factor", factor)
     		.executeUpdate();
+    }
+    
+    public List<Artikel> findAll(){
+    	return getEntityManager().createQuery("select a from Artikel a order by a.naam", Artikel.class)
+    			.getResultList();
     }
     
 }

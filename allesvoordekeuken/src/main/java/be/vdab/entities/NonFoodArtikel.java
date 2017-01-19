@@ -14,4 +14,6 @@ public class NonFoodArtikel extends Artikel{
 		super(naam, aankoopprijs, verkoopprijs);
 		this.garantie = garantie;
 	}
+	
+	protected NonFoodArtikel() {}
 }

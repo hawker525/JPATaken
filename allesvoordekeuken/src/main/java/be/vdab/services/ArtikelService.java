@@ -44,4 +44,8 @@ public class ArtikelService extends AbstractService{
 		}
 	}
 	
+	public List<Artikel> findAll(){
+		return artikelRepository.findAll();
+	}
+	
 }
